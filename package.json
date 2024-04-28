@@ -1,0 +1,31 @@
+{
+  "name": "sigewinne-monorepo",
+  "type": "module",
+  "private": "true",
+  "packageManager": "pnpm@9.0.6",
+  "scripts": {
+    "lint": "eslint .",
+    "prepare": "simple-git-hooks",
+    "prettier": "prettier --write .",
+    "up": "taze latest -I -f"
+  },
+  "devDependencies": {
+    "@ayingott/eslint-config": "^0.9.1",
+    "@ayingott/prettier-config": "^0.3.1",
+    "eslint": "^9.1.1",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "simple-git-hooks": "^2.11.1",
+    "taze": "^0.13.7"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "prettier": "@ayingott/prettier-config"
+}
