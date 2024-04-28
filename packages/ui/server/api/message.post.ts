@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
 
   const runtimeConfig = useRuntimeConfig()
 
-  const data = await $fetch("/message", {
+  const data = await $fetch<{ reply: string }>("/message", {
     baseURL: runtimeConfig.apiUrl,
     method: "post",
     body,

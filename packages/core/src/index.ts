@@ -8,7 +8,12 @@ app.get("/", (c) => {
 
 app.post("/message", async (c) => {
   const { message } = await c.req.json()
-  return c.json({ reply: `Received message: ${message}` })
+
+  let responseText = message
+
+  if (!responseText) responseText = "no-data-from-server"
+
+  return c.json({ reply: `Received message: ${responseText}` })
 })
 
 export default app
