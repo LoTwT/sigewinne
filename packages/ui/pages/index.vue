@@ -1,13 +1,15 @@
 <script setup lang="ts">
-const message = ref("default")
+const message = ref("")
 
-const { data, refresh } = await useFetch("/api/message", {
-  method: "post",
-  headers: {
-    "content-type": "application/json",
-  },
-  body: computed(() => JSON.stringify({ message: message.value })),
-})
+const { data, refresh } = await useAsyncData("/api/message", () =>
+  $fetch("/api/message", {
+    method: "post",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({ message: message.value }),
+  }),
+)
 
 const send = () => {
   refresh()
