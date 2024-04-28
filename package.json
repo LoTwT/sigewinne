@@ -4,10 +4,11 @@
   "private": "true",
   "packageManager": "pnpm@9.0.6",
   "scripts": {
+    "dev:core": "pnpm -C packages/core run dev",
     "lint": "eslint .",
     "prepare": "simple-git-hooks",
     "prettier": "prettier --write .",
-    "up": "taze latest -I -f"
+    "up": "taze latest -I -f -r"
   },
   "devDependencies": {
     "@ayingott/eslint-config": "^0.9.1",
