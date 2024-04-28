@@ -5,6 +5,7 @@
   "packageManager": "pnpm@9.0.6",
   "scripts": {
     "dev:core": "pnpm -C packages/core run dev",
+    "dev:ui": "pnpm -C packages/ui run dev",
     "lint": "eslint .",
     "prepare": "simple-git-hooks",
     "prettier": "prettier --write .",

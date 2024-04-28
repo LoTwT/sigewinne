@@ -1,4 +1,5 @@
 {
+  "name": "core",
   "scripts": {
     "deploy": "wrangler deploy --minify src/index.ts",
     "dev": "wrangler dev src/index.ts"
