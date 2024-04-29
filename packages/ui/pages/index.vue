@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const message = ref("")
 
-const { data, refresh } = await useAsyncData(
+const { data, pending, error, refresh } = await useAsyncData(
   "/api/message",
   () =>
-    $fetch("/api/message", {
+    $fetch<MessageResponse>("/api/message", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -12,7 +12,13 @@ const { data, refresh } = await useAsyncData(
       body: JSON.stringify({ message: message.value }),
     }),
   {
-    default: () => ({ reply: "no-data" }),
+    default: () => ({
+      code: StatusCode.Message.Error,
+      data: {
+        msg: "error default",
+        history: [],
+      },
+    }),
   },
 )
 
@@ -24,7 +30,16 @@ const send = () => {
 <template>
   <div>
     <input v-model="message" />
-    <button @click="send">send</button>
-    <div>{{ data.reply }}</div>
+    <button @click="send" :disabled="pending">Send</button>
+    <p v-if="pending">Sending...</p>
+    <p v-if="error">Error: {{ error }}</p>
+    <div v-if="data">
+      <div>{{ data.data.msg }}</div>
+      <ul>
+        <li v-for="(msg, index) in data.data.history" :key="index">
+          {{ msg }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
